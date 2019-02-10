@@ -1,39 +1,43 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import products from './products'
-import Table from '../common/Table/Table'
-import ProductCell from './ProductCell';
-import ProductHeader from './ProductHeader';
+import React, { Component } from 'react'
+import Table from '../common/Table'
+import ProductCell from './ProductCell'
+import ProductHeader from './ProductHeader'
+import productStore, { Product } from './productStore'
+import { observable } from 'mobx'
+import { observer } from 'mobx-react';
 
 interface Props {
-
+  products: Product[]
 }
 
 const headers = ['Product', 'Color', 'Price']
 
-const ProductTable = (props: Props) => {
+@observer
+class ProductTable extends Component<Props> {
 
-  const jsxHeaders = headers.map(header => (
-    <ProductHeader
-      key={header}
-      header={header}
-    />
-  ))
+  render() {
+    const jsxHeaders = headers.map(header => (
+      <ProductHeader
+        key={header}
+        header={header}
+      />
+    ))
 
-  return <Table headers={jsxHeaders}>
+    return <Table headers={jsxHeaders}>
 
-    {products.map(product => (
-      <tr key={product.id}>
-        <ProductCell> {product.title} </ProductCell>
-        <ProductCell> {product.color} </ProductCell>
-        <ProductCell align='right'>
-          {product.price} {product.currency}
-        </ProductCell>
-      </tr>
-    ))}
+      {this.props.products.map(product => (
+        <tr key={product.id}>
+          <ProductCell> {product.title} </ProductCell>
+          <ProductCell> {product.color} </ProductCell>
+          <ProductCell align='right'>
+            {product.price} {product.currency}
+          </ProductCell>
+        </tr>
+      ))}
 
-  </Table>
+    </Table>
+  }
 
 }
 
-export default ProductTable
+export default () => <ProductTable products={productStore.products}/>

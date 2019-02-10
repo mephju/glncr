@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import EditableDictionaryTable from './EditableDictionaryTable'
 import DictionaryEntry from '../DictionaryEntry'
-import classes from './DictionaryEditor.module.css'
 import Button from '../../common/Button'
 import Dictionary from '../Dictionary'
 import DictionaryTitle from './DictionaryTitle'
 import { saveDictionary, removeDictionary } from '../dictionaryStore'
 import { observer } from 'mobx-react';
 import { validateEntries } from './dictionaryValidator'
+import ProductTransformerButton from './ProductTransformerButtons';
 
 interface Props {
   dictionary: Dictionary
@@ -92,14 +92,17 @@ const isValidDictionary = (entries: DictionaryEntry[]) => {
     return <div>
 
       <DictionaryTitle title={this.state.title} onTitleChange={this.updateTitle} />
+      <Button onClick={this.createNewEntry}>
+        Create new Entry
+      </Button>
       <EditableDictionaryTable
         onEntryChange={this.onEntryChange}
         removeEntry={this.removeEntry}
         entries={this.state.entries}
         entryValidations={entryValidations}
       />
-      <div className={classes.dictionaryControls}>
 
+      <div>
         <Button onClick={this.saveDictionary}>
           Save Dictionary
         </Button>
@@ -107,12 +110,10 @@ const isValidDictionary = (entries: DictionaryEntry[]) => {
         <Button onClick={this.removeDictionary}>
           Remove Dictionary
         </Button>
-
-        <Button onClick={this.createNewEntry}>
-          Create new Entry
-        </Button>
-
+      <ProductTransformerButton dictionary={this.state} />
       </div>
+
+
     </div>
   }
 

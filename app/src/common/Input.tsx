@@ -49,6 +49,7 @@ class Input extends React.PureComponent<Props> {
     })
 
     return <input
+      placeholder={this.props.placeholder}
       title={this.props.error}
       className={className}
       value={this.props.value}

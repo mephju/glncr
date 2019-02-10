@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import ProductTable from './products/ProductTable'
-import DictonaryEditor from './dictionaries/DictionaryEditor/DictionaryEditor';
-import DictionaryLoader from './dictionaries/DictionaryLoader/DictionaryLoader';
-import { observer } from 'mobx-react';
+import DictonaryEditor from './dictionaries/DictionaryEditor/DictionaryEditor'
+import DictionaryLoader from './dictionaries/DictionaryLoader/DictionaryLoader'
+import { observer } from 'mobx-react'
 import dictionaryStore from './dictionaries/dictionaryStore'
 import classes from './App.module.css'
 
@@ -10,9 +10,7 @@ import classes from './App.module.css'
   render() {
     return <div className={classes.app}>
       <section>
-        <h1> Source Data </h1>
-        <ProductTable />
-        <h1> Transformed Data </h1>
+        <h1> Products </h1>
         <ProductTable />
       </section>
 

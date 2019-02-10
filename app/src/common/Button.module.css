@@ -6,6 +6,7 @@
   /* border-right: 1px solid darkcyan; */
   border: none;
   cursor: pointer;
+  width: 197px;
 }
 
 .button:hover {

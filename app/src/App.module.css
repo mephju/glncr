@@ -1,5 +1,6 @@
 .app {
-  padding: 20px;
+  padding: 10px;
+  box-sizing: border-box;
   background-color: #282c34;
   display: flex;
   min-height: 100vh;
@@ -7,11 +8,13 @@
 }
 
 section {
-  width: 600px;
+  width: 33%;
   background: #3d3d3d;
   padding: 20px;
-  margin-right: 20px;
+  margin: 10px;
 }
+
+
 
 a {
   color: #61dafb;

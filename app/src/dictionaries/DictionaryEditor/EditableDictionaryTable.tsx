@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
-import Table from '../../common/Table/Table'
-import EditableDictionaryRow from './EditableDictionaryRow';
-import DictionaryEntry from '../DictionaryEntry';
+import Table from '../../common/Table'
+import EditableDictionaryRow from './EditableDictionaryRow'
+import DictionaryEntry from '../DictionaryEntry'
 
 interface Props {
   entries: DictionaryEntry[],
