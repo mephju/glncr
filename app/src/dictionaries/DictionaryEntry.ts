@@ -1,3 +1,5 @@
+import { generateId } from "../common/utils"
+
 class DictionaryEntry {
 
   id: string;
@@ -5,7 +7,7 @@ class DictionaryEntry {
   to: string;
 
   private constructor(from: string, to: string) {
-    this.id = Math.random().toString(36).substr(2, 9)
+    this.id = generateId()
     this.from = from
     this.to = to
   }

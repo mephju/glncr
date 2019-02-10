@@ -1,48 +1,52 @@
-import React, { PureComponent } from 'react'
-import TransformerTable from './DictionaryTable'
+import React, { Component } from 'react'
+import EditableDictionaryTable from './EditableDictionaryTable'
 import DictionaryEntry from '../DictionaryEntry'
 import classes from './DictionaryEditor.module.css'
-import Button from '../../common/Button';
-import Dictionary from '../Dictionary';
-import DictionaryTitle from './DictionaryTitle';
+import Button from '../../common/Button'
+import Dictionary from '../Dictionary'
+import DictionaryTitle from './DictionaryTitle'
+import { saveDictionary, removeDictionary } from '../dictionaryStore'
+import { observer } from 'mobx-react';
+import { validateEntries } from './dictionaryValidator'
 
 interface Props {
-  dictionary: Dictionary,
+  dictionary: Dictionary
 }
 
 interface State {
+  id: string
   entries: DictionaryEntry[]
   title: string
 }
 
+const isValidDictionary = (entries: DictionaryEntry[]) => {
+  return !validateEntries(entries).some(t => !!t)
+}
 
-class DictonaryEditor extends PureComponent<Props, State> {
-
-  static defaultProps = {
-    dictionary: Dictionary.create(
-      '',
-      [DictionaryEntry.create('', '')]
-    )
-  }
+@observer class DictonaryEditor extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
 
+    const {dictionary} = props
+
     this.state = {
-      title: this.props.dictionary.title,
-      entries: this.props.dictionary.entries,
+      id: dictionary.id,
+      title: dictionary.title,
+      entries: dictionary.entries,
     }
+
     this.createNewEntry = this.createNewEntry.bind(this)
     this.onEntryChange = this.onEntryChange.bind(this)
     this.removeEntry = this.removeEntry.bind(this)
     this.updateTitle = this.updateTitle.bind(this)
+    this.saveDictionary = this.saveDictionary.bind(this)
+    this.removeDictionary = this.removeDictionary.bind(this)
 
   }
 
-
   updateEntries(entries: DictionaryEntry[]) {
-    // console.log('updateEntries', entries)
-    this.setState({entries})
+    this.setState({ entries })
   }
 
   createNewEntry() {
@@ -58,20 +62,23 @@ class DictonaryEditor extends PureComponent<Props, State> {
   }
 
   saveDictionary() {
-
+    if(isValidDictionary(this.state.entries)) {
+      saveDictionary(Dictionary.recreate(
+        this.state.id,
+        this.state.title,
+        this.state.entries
+      ))
+    }
   }
 
   removeDictionary() {
-
+    removeDictionary(this.state.id)
   }
 
   onEntryChange(entry: DictionaryEntry) {
-
-    const entries = this.state.entries.map(
-      e => e.id === entry.id ? entry : e
-    )
+    const replace = (e: DictionaryEntry) => e.id === entry.id ? entry : e
+    const entries = this.state.entries.map(replace)
     this.updateEntries(entries)
-
   }
 
   updateTitle(title: string) {
@@ -80,13 +87,16 @@ class DictonaryEditor extends PureComponent<Props, State> {
 
   render() {
 
+    const entryValidations = validateEntries(this.state.entries)
+
     return <div>
 
       <DictionaryTitle title={this.state.title} onTitleChange={this.updateTitle} />
-      <TransformerTable
+      <EditableDictionaryTable
         onEntryChange={this.onEntryChange}
         removeEntry={this.removeEntry}
         entries={this.state.entries}
+        entryValidations={entryValidations}
       />
       <div className={classes.dictionaryControls}>
 

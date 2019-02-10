@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './Input.module.css'
-// import classNames from 'classnames'
+import classNames from 'classnames'
 
 type OnChange = (
   name: string,
@@ -14,6 +14,7 @@ interface Props {
   onChange: OnChange
   value: string,
   autoFocus: boolean;
+  error: string | undefined
 }
 
 
@@ -29,6 +30,7 @@ class Input extends React.PureComponent<Props> {
     placeholder: '',
     value: '',
     autoFocus: false,
+    error: undefined,
   }
 
   onChange(e: React.FormEvent<HTMLInputElement>) {
@@ -41,9 +43,15 @@ class Input extends React.PureComponent<Props> {
 
   render() {
 
+    const className = classNames(
+      classes.input, {
+      [classes.error]: this.props.error,
+    })
+
     return <input
-      className={classes.input}
-      {...this.props}
+      title={this.props.error}
+      className={className}
+      value={this.props.value}
       onChange={this.onChange}
       type='text'
     />

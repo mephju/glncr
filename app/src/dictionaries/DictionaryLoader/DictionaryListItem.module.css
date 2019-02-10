@@ -1,9 +1,22 @@
 .dictionaryListItem {
   display: flex;
+  border-bottom: 1px solid #efefef;
+}
+.dictionaryListItem:last-child {
+  border-bottom: 0;
 }
 
 .cell {
   padding: 10px;
   background: white;
   color: #333;
+}
+
+.title {
+  width: 400px;
+}
+
+.size {
+
+  font-size: 9px;
 }

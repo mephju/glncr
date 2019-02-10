@@ -2,3 +2,8 @@
   padding: 10px;
   border: none;
 }
+
+
+.error {
+  background-color: red;
+}

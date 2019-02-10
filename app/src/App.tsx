@@ -1,34 +1,50 @@
 import React, { Component } from 'react';
-import './App.css';
 import ProductTable from './products/ProductTable'
 import DictonaryEditor from './dictionaries/DictionaryEditor/DictionaryEditor';
 import DictionaryLoader from './dictionaries/DictionaryLoader/DictionaryLoader';
+import { observer } from 'mobx-react';
+import dictionaryStore from './dictionaries/dictionaryStore'
+import classes from './App.module.css'
 
-class App extends Component {
+@observer class App extends Component {
   render() {
-    return <div className="App">
-      <div className="body">
+    return <div className={classes.app}>
+      <section>
+        <h1> Source Data </h1>
+        <ProductTable />
+        <h1> Transformed Data </h1>
+        <ProductTable />
+      </section>
 
-        <section>
-          <h1> Source Data </h1>
-          <ProductTable />
-          <h1> Transformed Data </h1>
-          <ProductTable />
-        </section>
+      <section>
+        <h1> Dictionaries</h1>
+        <DictionaryLoader />
+      </section>
 
-        <section>
-          <h1> Dictionaries</h1>
-          <DictionaryLoader />
-        </section>
-
+      { dictionaryStore.loadedDictionary &&
         <section>
           <h1> Dictionary </h1>
-          <DictonaryEditor />
+          <DictonaryEditor
+            key={dictionaryStore.loadedDictionary.id}
+            dictionary={dictionaryStore.loadedDictionary}
+          />
         </section>
-
-      </div>
+      }
 
     </div>
+  }
+}
+
+interface P {
+  store: any
+}
+@observer class List extends Component<P> {
+  render() {
+    console.log('list', this.props.store.array)
+    return <div>
+
+        {this.props.store.array.map((a: string) => 'asdasdfsdafajfsadf' + a)}
+      </div>
   }
 }
 

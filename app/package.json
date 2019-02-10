@@ -34,5 +34,13 @@
   ],
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.3.0"
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-decorators"
+    ],
+    "presets": [
+      "react-app"
+    ]
   }
 }

@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react'
-import classes from './ListItem.module.css'
+import React from 'react'
 
 interface Props {
   children: any
@@ -7,7 +6,7 @@ interface Props {
 
 const ListItem = ({children}: Props) => {
 
-  return <li className={classes.listItem}> {children} </li>
+  return <li> {children} </li>
 
 }
 

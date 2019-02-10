@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react'
-import Input from '../../common/Input'
-import initialDictionaries from '../initialDictionaries'
 import ListItem from '../../common/ListItem'
 import Dictionary from '../Dictionary'
 import classes from './DictionaryListItem.module.css'
-import Button from '../../common/Button';
+import Button from '../../common/Button'
+import { loadDictionary } from '../dictionaryStore'
 
 interface Props {
   dictionary: Dictionary
@@ -14,24 +13,31 @@ class DictionaryListItem extends PureComponent<Props> {
 
   constructor(props: Props) {
     super(props)
+    this.onDictionaryLoad = this.onDictionaryLoad.bind(this)
+  }
+
+  onDictionaryLoad() {
+    loadDictionary(this.props.dictionary)
   }
 
   render() {
 
-    const {dictionary: dict} = this.props
+    const {dictionary} = this.props
 
     return <ListItem>
       <div className={classes.dictionaryListItem}>
 
         <div className={classes.cell}>
-          {dict.title}
+          <div className={classes.title}>
+            {dictionary.title || 'UNNAMED'}
+          </div>
+          <div className={classes.size}>
+            {dictionary.entries.length} Entries
+          </div>
         </div>
 
-        <div className={classes.cell}>
-          {dict.entries.length} Entries
-        </div>
 
-        <Button onClick={console.log}>
+        <Button onClick={this.onDictionaryLoad}>
           Load Dictionary
         </Button>
       </div>

@@ -1,15 +1,17 @@
 import React, { PureComponent } from 'react'
-import Input from "../../common/Input";
-import DictionaryEntry from '../DictionaryEntry';
-import Button from '../../common/Button';
+import Input from "../../common/Input"
+import DictionaryEntry from '../DictionaryEntry'
+import Button from '../../common/Button'
+import classes from './EditableDictionaryRow.module.css'
 
 interface Props {
   onEntryChange: (entry: DictionaryEntry) => void
   removeEntry: (entry: DictionaryEntry) => void
   entry: DictionaryEntry
+  errorMessage: string | undefined
 }
 
-class TransformerRow extends PureComponent<Props> {
+class EditableDictionaryRow extends PureComponent<Props> {
 
   constructor(props: Props) {
     super(props)
@@ -40,8 +42,7 @@ class TransformerRow extends PureComponent<Props> {
   render() {
 
 
-    const {entry} = this.props
-
+    const {entry, errorMessage} = this.props
 
     return <tr>
       <td>
@@ -50,7 +51,11 @@ class TransformerRow extends PureComponent<Props> {
           name={`${entry.id}.from`}
           value={entry.from}
           onChange={this.onFromFieldChange}
+          error={errorMessage}
         />
+        {errorMessage && (
+          <div className={classes.error}> {errorMessage} </div>
+        )}
       </td>
 
       <td>
@@ -59,6 +64,7 @@ class TransformerRow extends PureComponent<Props> {
           name={`${entry.id}.to`}
           value={entry.to}
           onChange={this.onToFieldChange}
+          error={errorMessage}
         />
       </td>
 
@@ -74,4 +80,4 @@ class TransformerRow extends PureComponent<Props> {
 
 }
 
-export default TransformerRow
+export default EditableDictionaryRow
