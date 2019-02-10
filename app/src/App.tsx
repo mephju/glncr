@@ -21,7 +21,7 @@ import classes from './App.module.css'
 
       { dictionaryStore.loadedDictionary &&
         <section>
-          <h1> Dictionary </h1>
+          <h1> Dictionary Editor </h1>
           <DictonaryEditor
             key={dictionaryStore.loadedDictionary.id}
             dictionary={dictionaryStore.loadedDictionary}

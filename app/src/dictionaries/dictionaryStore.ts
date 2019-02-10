@@ -25,7 +25,6 @@ const dictionaryStore = observable({
 })
 
 export const loadDictionary = action((dictionary: Dictionary) => {
-  console.log('loadDictionary')
   dictionaryStore.loadedDictionary = dictionary
 })
 
