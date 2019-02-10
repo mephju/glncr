@@ -1,0 +1,12 @@
+.cell {
+  text-align: left;
+  padding-right: 20px;
+}
+
+.cell:last-child {
+  padding-right: 0;
+}
+
+.cell.right {
+  text-align: right;
+}

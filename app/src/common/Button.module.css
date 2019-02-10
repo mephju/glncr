@@ -1,0 +1,13 @@
+.button {
+  background: cyan;
+  font-weight: bold;
+  color: white;
+  padding: 10px 10px;
+  /* border-right: 1px solid darkcyan; */
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: darkcyan;
+}
